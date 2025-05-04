@@ -12,9 +12,10 @@ public interface IProjectService
     Task<ProjectResult> CreateProjectAsync(AddProjectFormData formData);
     Task<ProjectResult<IEnumerable<Project>>> CreateProjectsAsync();
     Task<ProjectResult<Project>> CreateProjectsAsync(string id);
+    Task<object> GetAllAsync();
 }
 
-public class ProjectService(IProjectRepository projectRepository, IStatusService statusService) : IProjectService
+public class ProjectService(IProjectRepository projectRepository, IStatusService statusService) //: IProjectService
 {
     private readonly IProjectRepository _projectRepository = projectRepository;
     private readonly IStatusService _statusService = statusService;

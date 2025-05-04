@@ -16,15 +16,16 @@ builder.Services.AddIdentity<UserEntity, IdentityRole>(x =>
 })
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();  
-builder.Services.ConfigureApplicationCookie(x =>
-{
-    x.LoginPath = "/auth/login";
-    x.AccessDeniedPath = "/auth/denied";
-    x.Cookie.HttpOnly = true;
-    x.Cookie.IsEssential = true;
-    x.Cookie.Expiration = TimeSpan.FromHours(1);
-    x.SlidingExpiration = true;
-});
+//builder.Services.ConfigureApplicationCookie(x =>
+//{
+//    x.LoginPath = "/auth/login";
+//    x.AccessDeniedPath = "/auth/denied";
+
+//    x.Cookie.HttpOnly = true;
+//    x.Cookie.IsEssential = true;
+//    x.Cookie.Expiration = TimeSpan.FromHours(1);
+//    x.SlidingExpiration = true;
+//});
 
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -34,7 +35,7 @@ builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IStatusService, StatusService>();
-builder.Services.AddScoped<IProjectService, ProjectService>();
+//builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
@@ -51,7 +52,7 @@ app.MapStaticAssets();
 app.UseRewriter(new RewriteOptions().AddRedirect("^$", "/admin/overview"));
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Owerview}/{action=Index}/{id?}")
+    pattern: "{controller=Projects}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 

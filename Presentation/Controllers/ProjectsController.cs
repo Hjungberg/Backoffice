@@ -7,31 +7,31 @@ namespace Presentation.Controllers;
 
 public class ProjectsController(IProjectService projectService) : Controller
 {
-    private readonly IProjectService _projectService = projectService;
+    private readonly IProjectService _projectService = projectService ?? throw new ArgumentNullException(nameof(projectService));
 
     public async Task<IActionResult> Index()
     {
         var model = new ProjectsViewModel
         {
-            Projects = await _projectService.GetAllAsync();
+            Projects = await _projectService.GetAllAsync()
         };
         return View(model);
     }
-    [HttpPost]
-    public async Task<IActionResult> AddAsync(AddProjectViewModel model)
-    {
-        var addProjectFormData = model.MapTo<AddProjectFormData>();
-        var result = await _projectService.CreateProjectAsync(addProjectFormData);
-        return Json(new {});
-    }
-    [HttpPut]
-    public IActionResult Update(UpdateProjectViewModel model)
-    {
-        return Json(new { });
-    }
-    [HttpDelete]§
-    public IActionResult Delete(string id)
-    {
-        return Json(new { });
-    }
+    //[HttpPost]
+    //public async Task<IActionResult> AddAsync(AddProjectViewModel model)
+    //{
+    //    var addProjectFormData = model.MapTo<AddProjectFormData>();
+    //    var result = await _projectService.CreateProjectAsync(addProjectFormData);
+    //    return Json(new { });
+    //}
+    //[HttpPut]
+    //public IActionResult Update(UpdateProjectViewModel model)
+    //{
+    //    return Json(new { });
+    //}
+    //[HttpDelete]
+    //public IActionResult Delete(string id)
+    //{
+    //    return Json(new { });
+    //}
 }

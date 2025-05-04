@@ -1,59 +1,35 @@
 ﻿
-// ------------- wysiwyg ------------
-const addProjectDescriptionTextarea = document.getElementById('add-project-description');
-const addProjectDescriptionQuill = new Quill('#add-project-description-wysiwyg-editor', {
-    modules: {
-        syntax: true,
-        toolbar: '#add-project-description-wysiwyg-toolbar'
-    },
-    theme: 'snow',
-    placeholder: 'Type something'
-});
-
-addProjectDescriptionQuill.on('text-change', function () {
-    addProjectDescriptionTextarea.value = addProjectDescriptionQuill.root.innerHTML;
-});
-
-const editProjectDescriptionTextarea = document.getElementById('edit-project-description');
-const editProjectDescriptionQuill = new Quill('#edit-project-description-wysiwyg-editor', {
-    modules: {
-        syntax: true,
-        toolbar: '#edit-project-description-wysiwyg-toolbar'
-    },
-    theme: 'snow',
-    placeholder: 'Type something'
-});
-
-editProjectDescriptionQuill.on('text-change', function () {
-    editProjectDescriptionTextarea.value = editProjectDescriptionQuill.root.innerHTML;
-});
 
 // ------------- add picture -----------
 
-const uploadTrigger = document.getElementById('upload-trigger');
-const fileInput = document.getElementById('image-upload');
-const imagePreview = document.getElementById('image-preview');
-const imagePreviewIconContainer = document.getElementById('image-preview-icon-container');
-const imagePreviewIcon = document.getElementById('image-preview-icon');
+document.addEventListener('DOMContentLoaded', function () {
+    const uploadTrigger = document.getElementById('upload-trigger');
+    const fileInput = document.getElementById('image-upload');
+    const imagePreview = document.getElementById('image-preview');
+    const imagePreviewIconContainer = document.getElementById('image-preview-icon-container');
+    const imagePreviewIcon = document.getElementById('image-preview-icon');
 
-uploadTrigger.addEventListener('click', function () {
-    fileInput.click();
-});
+    if (uploadTrigger && fileInput && imagePreview && imagePreviewIconContainer && imagePreviewIcon) {
+        uploadTrigger.addEventListener('click', function () {
+            fileInput.click();
+        });
 
-fileInput.addEventListener('change', function (e) {
-    const file = e.target.files[0];
-    if (file && file.type.startsWith('image/')) {
-        const reader = new FileReader();
+        fileInput.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
 
-        reader.onload = (e) => {
-            imagePreview.src = e.target.result;
-            imagePreview.classList.remove('hide');
-            imagePreviewIconContainer.classList.add('selected');
-            imagePreviewIcon.classList.remove('fa-camera');
-            imagePreviewIcon.classList.add('fa-pen-to-square');
-        }
+                reader.onload = (e) => {
+                    imagePreview.src = e.target.result;
+                    imagePreview.classList.remove('hide');
+                    imagePreviewIconContainer.classList.add('selected');
+                    imagePreviewIcon.classList.remove('fa-camera');
+                    imagePreviewIcon.classList.add('fa-pen-to-square');
+                };
 
-        reader.readAsDataURL(file);
+                reader.readAsDataURL(file);
+            }
+        });
     }
 });
 
@@ -64,8 +40,10 @@ modals.forEach(modal => {
     modal.addEventListener("click", function () {
         const targetId = modal.getAttribute("data-target");
         const targetElement = document.querySelector(targetId);
-        // add a condition for checking if targetElement exists
-        targetElement.classList.add("modal-show");
+        // add a  for checking if targetElement exists
+        if (targetElement) {
+            targetElement.classList.remove("modal-show");
+        }
     });
 });
 
@@ -150,3 +128,35 @@ document.addEventListener('click', (e) => {
         document.querySelectorAll('.form-select.open').forEach(select => select.classList.remove('open'));
     }
 });
+
+// ------------- wysiwyg ------------
+//document.addEventListener('DOMContentLoaded', function () {
+//    const addProjectDescriptionTextarea = document.getElementById('add-project-description');
+//    const addProjectDescriptionQuill = new Quill('#add-project-description-wysiwyg-editor', {
+//        modules: {
+//            syntax: true,
+//            toolbar: '#add-project-description-wysiwyg-toolbar'
+//        },
+//        theme: 'snow',
+//        placeholder: 'Type something'
+//    });
+
+//    addProjectDescriptionQuill.on('text-change', function () {
+//        addProjectDescriptionTextarea.value = addProjectDescriptionQuill.root.innerHTML;
+//    });
+//});
+//document.addEventListener('DOMContentLoaded', function () {
+//    const editProjectDescriptionTextarea = document.getElementById('edit-project-description');
+//    const editProjectDescriptionQuill = new Quill('#edit-project-description-wysiwyg-editor', {
+//        modules: {
+//            syntax: true,
+//            toolbar: '#edit-project-description-wysiwyg-toolbar'
+//        },
+//        theme: 'snow',
+//        placeholder: 'Type something'
+//    });
+
+//    editProjectDescriptionQuill.on('text-change', function () {
+//        editProjectDescriptionTextarea.value = editProjectDescriptionQuill.root.innerHTML;
+//    });
+//})

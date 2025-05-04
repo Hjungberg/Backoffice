@@ -1,0 +1,48 @@
+﻿@using Webapp.Models
+@model LoginViewModel
+@{
+	Layout = "_CenterWrapperLayout";
+	ViewData["Title"] = "Sign In";
+
+}
+<section id="login">
+    <div class="card">
+        <div class="card-header">
+            <h1>Login</h1>
+        </div>
+        <div class="card-body">
+            <form method="post" asp-controller="Login" asp-action="ExternalLogin" novalidate>
+                <button class="btn-external">
+                    <img src="/images/google-icon.svg" alt="" />
+                    <span>Log in with Google</span>
+                </button>
+            </form>
+            <div class="or-divider"><span>or</span></div>
+            <form method="post" asp-controller="Login" asp-action="Index" novalidate>
+
+                <div class="form-group">
+                    <label class="form-label" asp-for="Email"> </label>
+                    <input class="form-input" asp-for="Email" />
+                    <span asp-validation-for="Email"></span>
+
+                    <label class="form-label" asp-for="Password"> </label>
+                    <input class="form-input" asp-for="Password" />
+                    <span asp-validation-for="Password"></span>
+                </div>
+                <div class="form-checkbox-group">
+                    <input asp-for="IsPersistent"
+                           class="form-checkbox"
+                           type="checkbox"
+                           placeholder="Confirm password" />
+                    <label asp-for="IsPersistent">Remember Me</label>
+                </div>
+                <button type="submit" class="btn">Log in</button>
+            </form>
+        </div>
+        <div class="card-fotter">
+            Don't have an accont? <a asp-controller="SignUp" asp-action="Index">Sign up</a>
+        </div>
+    </div>
+    </div>
+
+</section>
